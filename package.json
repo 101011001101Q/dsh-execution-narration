@@ -22,7 +22,7 @@
   },
   "author": "101011001101Q",
   "main": "lib/index.js",
-  "icon": "./icon.svg",
+  "icon": "./assets/icon-180.png",
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
   },
@@ -41,9 +41,9 @@
     "docs",
     "cordis.patch.yml",
     "icon.svg",
-    "screenshots.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "assets"
   ],
   "dsh": {
     "bundle": {
