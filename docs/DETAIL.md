@@ -1,47 +1,47 @@
-# Machine translation of execution narration
+# 执行过程叙述机器翻译
 
-Translates the agent's **English progress narration** (working notes, plans, interim summaries) into Simplified Chinese in place — at the original position, with no extra chat messages and no change to the agent's behaviour.
+把 Agent 执行任务时输出的**英文过程叙述**（工作说明、计划、阶段性总结）原位翻译成简体中文，直接显示在原文位置，不新增聊天消息、不改变 Agent 的实际行为。
 
-> ⚠️ **Privacy**: text to be translated is sent to a third-party translation service (Bing free anonymous endpoint by default; Google optional) and **may contain project code, file contents, or other private information**. Enabling acknowledges this.
+> ⚠️ **隐私提示**：待翻译文本将被发送给第三方翻译服务（默认 Bing 免费匿名端点，可选 Google），**可能包含项目代码、文件内容或其他私有信息**。启用即表示你已知悉。
 
-## What it translates
+## 翻译什么
 
-| Translated | Left as-is |
+| 翻译 | 不翻译 |
 |---|---|
-| English working notes, plans and interim summaries produced while the agent works | Final answer, Reasoning content (handled by the official thinking-translation plugin) |
-| Natural-language notes around file reads / code analysis / architecture research | User messages, tool-call records, run status, system prompts |
-| Complete English paragraphs | File paths, commands, code blocks, technical identifiers |
-| | Text already in Chinese |
+| Agent 执行过程中的英文工作说明、计划、阶段性总结 | 最终回答、Reasoning 思考内容（由官方「思考过程和翻译」插件负责） |
+| 文件读取 / 代码分析 / 架构研究前后的自然语言说明 | 用户消息、工具调用记录、运行状态、系统提示 |
+| 已是英文的完整段落 | 文件路径、命令、代码块、技术标识符 |
+| | 已是中文的内容 |
 
-**Scope is not decided by English phrasing**: in DSH, narration and the final answer are the same `text` block with no distinct event type. The plugin uses the render-time structural signal `turnProcess.spec.answerStep` to exclude the final answer; when that signal is unavailable it **never silently widens scope**, and offers only a per-step manual "Translate this step" entry.
+**范围判定不靠英文句式**：DSH 里过程叙述与最终回答是同一种 `text` 块，没有独立事件类型。本插件用渲染期的结构信号 `turnProcess.spec.answerStep` 排除最终回答；拿不到信号时**绝不静默扩大范围**，只提供单条「翻译本段」手动入口。
 
-## Interaction
+## 交互
 
-- Automatic Simplified Chinese by default; the translation replaces the original text, preserving font, Markdown, code blocks and layout.
-- "View original / View translation" toggle at any time; toggling never re-requests the translation.
-- The original stays visible while loading; on failure/timeout the English original is shown with a "Retry" entry.
-- With automatic translation disabled, a single step can still be translated manually.
+- 默认自动翻译为简体中文，译文替换原文显示，保留原有字体、Markdown、代码块与排版。
+- 「查看原文 / 查看译文」随时切换，切换不重复请求翻译接口。
+- 翻译加载中保留原文；失败 / 超时显示英文原文并提供「重试」。
+- 禁用自动翻译后，仍可对单条过程叙述手动「翻译本段」。
 
-## Settings
+## 设置
 
-- Enable / disable automatic translation
-- Service: Bing (default, free anonymous, no API key) / Google
-- Target language: zh (default) / auto (follow UI language)
-- Restore defaults, test translation
+- 启用 / 禁用自动翻译
+- 翻译服务：Bing（默认，免费匿名、无需 API Key）/ Google
+- 目标语言：zh（默认）/ auto（跟随界面语言）
+- 恢复默认设置、试译一句
 
-## Implementation & performance
+## 实现与性能
 
-- Reuses the official `ctx.translator` service; no duplicate translation engine, no large dependencies.
-- Pure declarative React: wraps the built-in `assistant-step` renderer in place, keeping the official CoT plugin's `reasoning.body` chain — **both plugins can run together**.
-- Incremental translation: split by blank lines / 4000 chars, translate only stable complete segments, show unfinished text as original.
-- Exact-text-key cache + single-flight dedup + concurrency cap 3 + 120ms debounce + 15s timeout + AbortController cancel + failure fallback and retry.
-- Code blocks, inline code, URLs and file paths are placeholder-protected; a missing placeholder makes the whole segment fall back to the original.
-- Does not modify Session messages, model context, tool parameters or execution results.
-- Translations are persisted to the local session file: the plugin passes the session id to the host translator, which therefore writes each source paragraph and its translation as `plugin:translator/request` / `plugin:translator/result` records into your own session file (this is what makes a reopened Session reuse translations instead of re-requesting them). They are plugin records, not edits to your messages, but the text lands on your local disk in clear text.
+- 复用官方 `ctx.translator` 服务，不重复实现翻译引擎，不引入大型依赖。
+- 纯声明式 React：就地包裹内置 `assistant-step` 渲染器，保留官方 CoT 插件的 `reasoning.body` 链路，**两个插件可同时启用**。
+- 增量翻译：按空行 / 4000 字符分段，只翻已稳定的完整段落，未完成文本显示原文。
+- 精确文本键缓存 + 单飞去重 + 并发上限 3 + 120ms 防抖 + 15s 超时 + AbortController 取消 + 失败回退与重试。
+- 代码块 / 行内代码 / URL / 文件路径用占位符保护，译文缺占位符即整段回退原文。
+- 不改 Session 原始消息、模型上下文、工具参数或执行结果。
+- 译文会落到本机 session 文件：插件把 session id 传给宿主翻译服务，宿主因此把原文与译文以 `plugin:translator/request` / `plugin:translator/result` 记录写进你自己的 session 文件（这也是重复打开 Session 不重复请求的实现方式）。它们是 plugin 记录而非对你的消息的改写，但文本会以明文落在本机磁盘上。
 
-## Known limitations
+## 已知限制
 
-1. `answerStep` is a render-time, non-persisted signal that depends on host presentation policy; it can be `null` during streaming or when there is no final answer, in which case the plugin conservatively skips translation.
-2. Replacing the `assistant-step` renderer in place is incompatible with another plugin that replaces the same built-in entry (the official CoT plugin does not, so there is no conflict).
-3. A DSH upgrade that changes the built-in renderer's props shape may require a matching update.
-4. Bing / Google anonymous endpoint availability and output quality are outside this plugin's control.
+1. `answerStep` 是渲染期信号、非持久化，依赖宿主展示策略；流式 / 无最终回答时可为 `null`，此时保守不翻译。
+2. 就地替换 `assistant-step` 渲染器：与另一个也替换同一内置 entry 的插件不兼容（官方 CoT 插件不碰它，故无冲突）。
+3. DSH 升级若改动内置渲染器的 props 形状，本插件可能需同步更新。
+4. Bing / Google 匿名端点的可用性与返回质量不受本插件控制。

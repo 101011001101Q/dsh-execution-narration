@@ -2,7 +2,7 @@
   "meta": {
     "title": "执行过程叙述机器翻译",
     "description": "把 Agent 执行过程中的英文工作说明原位翻译成简体中文，保留最终回答原文，可与官方「思考过程和翻译」同时启用。",
-    "detail": "docs/DETAIL.zh.md"
+    "detail": "docs/DETAIL.md"
   },
   "config": {
     "enabled": "启用自动翻译",

@@ -2,7 +2,7 @@
   "meta": {
     "title": "Machine translation of execution narration",
     "description": "Translates the agent's English progress narration into Simplified Chinese in place, leaving the final answer untouched. Coexists with the official reasoning-translation plugin.",
-    "detail": "docs/DETAIL.md"
+    "detail": "docs/DETAIL.en.md"
   },
   "config": {
     "enabled": "Enable automatic translation",
