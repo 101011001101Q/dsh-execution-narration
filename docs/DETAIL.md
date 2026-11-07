@@ -37,6 +37,7 @@ Translates the agent's **English progress narration** (working notes, plans, int
 - Exact-text-key cache + single-flight dedup + concurrency cap 3 + 120ms debounce + 15s timeout + AbortController cancel + failure fallback and retry.
 - Code blocks, inline code, URLs and file paths are placeholder-protected; a missing placeholder makes the whole segment fall back to the original.
 - Does not modify Session messages, model context, tool parameters or execution results.
+- Translations are persisted to the local session file: the plugin passes the session id to the host translator, which therefore writes each source paragraph and its translation as `plugin:translator/request` / `plugin:translator/result` records into your own session file (this is what makes a reopened Session reuse translations instead of re-requesting them). They are plugin records, not edits to your messages, but the text lands on your local disk in clear text.
 
 ## Known limitations
 

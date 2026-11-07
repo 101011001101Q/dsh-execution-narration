@@ -10,3 +10,4 @@ node_modules/
 *.pem
 *.p12
 id_rsa*
+dist/

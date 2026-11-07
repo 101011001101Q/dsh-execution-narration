@@ -37,6 +37,7 @@
 - 精确文本键缓存 + 单飞去重 + 并发上限 3 + 120ms 防抖 + 15s 超时 + AbortController 取消 + 失败回退与重试。
 - 代码块 / 行内代码 / URL / 文件路径用占位符保护，译文缺占位符即整段回退原文。
 - 不改 Session 原始消息、模型上下文、工具参数或执行结果。
+- 译文会落到本机 session 文件：插件把 session id 传给宿主翻译服务，宿主因此把原文与译文以 `plugin:translator/request` / `plugin:translator/result` 记录写进你自己的 session 文件（这也是重复打开 Session 不重复请求的实现方式）。它们是 plugin 记录而非对你的消息的改写，但文本会以明文落在本机磁盘上。
 
 ## 已知限制
 

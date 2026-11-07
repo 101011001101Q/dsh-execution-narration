@@ -51,6 +51,7 @@ Settings persist through DSH's `configEditor`.
 - **Streaming and performance**: text is split on blank lines (and hard-split at the service's `maxTextChars`), and only complete paragraphs are sent. The engine keeps an exact-text cache, single-flights duplicate requests, debounces at 120 ms, caps concurrency at 3, times out at 15 s, aborts on unmount or session switch, and falls back to the original on failure.
 - **Code protection**: fenced code, inline code, URLs, file paths and `@scope/pkg` names are replaced with ASCII placeholders before the request. If any placeholder is missing from the response, the whole paragraph falls back to the original, so Markdown, code and paths are never mangled.
 - **Nothing is mutated upstream**: no session message, model context, tool argument or execution result is changed.
+- **Translations are persisted locally.** Because the plugin passes the session id to the host translator, the host writes each source paragraph and its translation into your own session file as `plugin:translator/request` / `plugin:translator/result` records — that is what lets a reopened session reuse a translation instead of requesting it again. These are plugin records beside the conversation, not edits to your messages, but the text does land on your local disk (unencrypted, like the rest of the session).
 
 ## Install
 
