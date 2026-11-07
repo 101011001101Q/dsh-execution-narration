@@ -1,0 +1,70 @@
+{
+  "name": "dsh-execution-narration",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "Translate an agent's English execution narration into Simplified Chinese in place, reusing the official translator service; final answers, tool records and reasoning stay untouched.",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "translation",
+    "chinese",
+    "i18n",
+    "narration"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/101011001101Q/dsh-execution-narration.git"
+  },
+  "homepage": "https://github.com/101011001101Q/dsh-execution-narration#readme",
+  "bugs": {
+    "url": "https://github.com/101011001101Q/dsh-execution-narration/issues"
+  },
+  "author": "101011001101Q",
+  "main": "lib/index.js",
+  "icon": "./icon.svg",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./docs/*": "./docs/*",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale",
+    "docs",
+    "cordis.patch.yml",
+    "icon.svg",
+    "screenshots.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-plugin-manager",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": ">=3.18.0-0 <4"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  }
+}

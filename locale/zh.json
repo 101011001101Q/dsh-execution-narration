@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "执行过程叙述机器翻译",
+    "description": "把 Agent 执行过程中的英文工作说明原位翻译成简体中文，保留最终回答原文，可与官方「思考过程和翻译」同时启用。",
+    "detail": "docs/DETAIL.zh.md"
+  },
+  "config": {
+    "enabled": "启用自动翻译",
+    "provider": "翻译服务",
+    "provider.bing": "Bing（免费，无需 API Key）",
+    "targetLanguage": "目标语言",
+    "targetLanguage.zh": "简体中文 (zh)",
+    "targetLanguage.auto": "跟随界面语言 (auto)",
+    "reset": "恢复默认设置"
+  },
+  "notice": {
+    "privacy": "隐私提示：待翻译文本将被发送给第三方翻译服务（默认 Microsoft Bing 免费匿名端点），可能包含项目代码、文件内容或其他私有信息。",
+    "scope": "作用范围：仅翻译 Agent 执行过程中的英文工作说明；不翻译最终回答、思考内容（由官方插件负责）、工具记录、用户消息、代码块、路径与已是中文的内容。",
+    "toggle": "查看原文 / 查看译文"
+  },
+  "label": {
+    "viewOriginal": "查看原文",
+    "viewTranslation": "查看译文",
+    "translating": "翻译中…",
+    "failed": "翻译失败，已显示原文",
+    "retry": "重试"
+  }
+}

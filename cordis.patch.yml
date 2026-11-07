@@ -1,0 +1,15 @@
+# dsh-execution-narration bundle 层。
+#
+# 只插入一条自己的插件 row：
+#   - 复用宿主内置的官方 translator 服务（Bing 免费匿名端点，无需 API Key）。
+#     该服务由内置 dsh-experimental-cot-translation-bundle 的 `translator` row 挂载，
+#     本插件不重复插入同名 row（loader 同 id 会合并/覆盖，见实测），只在运行时以
+#     ctx.get('translator') 软取；缺服务时本插件自动停用（见 lib/index.js）。
+#   - 配置：enabled / provider / targetLanguage，默认值见 lib/index.js 的 Config。
+- insert:
+    - id: execution-narration
+      name: 'dsh-execution-narration'
+      config:
+        enabled: true
+        provider: bing
+        targetLanguage: zh

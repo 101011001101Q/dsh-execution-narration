@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Machine translation of execution narration",
+    "description": "Translates the agent's English progress narration into Simplified Chinese in place, leaving the final answer untouched. Coexists with the official reasoning-translation plugin.",
+    "detail": "docs/DETAIL.md"
+  },
+  "config": {
+    "enabled": "Enable automatic translation",
+    "provider": "Translation service",
+    "provider.bing": "Bing (free, no API key)",
+    "targetLanguage": "Target language",
+    "targetLanguage.zh": "Simplified Chinese (zh)",
+    "targetLanguage.auto": "Follow UI language (auto)",
+    "reset": "Restore defaults"
+  },
+  "notice": {
+    "privacy": "Privacy: text to translate is sent to a third-party translation service (Microsoft Bing free anonymous endpoint by default) and may contain project code, file contents, or other private information.",
+    "scope": "Scope: only the agent's English progress narration is translated. The final answer, reasoning (handled by the official plugin), tool records, user messages, code blocks, paths and already-Chinese text are left as-is.",
+    "toggle": "View original / View translation"
+  },
+  "label": {
+    "viewOriginal": "View original",
+    "viewTranslation": "View translation",
+    "translating": "Translating…",
+    "failed": "Translation failed. Showing the original.",
+    "retry": "Retry"
+  }
+}
