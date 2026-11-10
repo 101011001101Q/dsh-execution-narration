@@ -2,6 +2,9 @@
 
 **English** | [简体中文](README.md)
 
+[![npm](https://img.shields.io/npm/v/dsh-execution-narration.svg)](https://www.npmjs.com/package/dsh-execution-narration)
+[![license](https://img.shields.io/npm/l/dsh-execution-narration.svg)](LICENSE)
+
 A DSH plugin that translates an agent's English **execution narration** into Simplified Chinese **in place** — the progress notes an agent writes while it works, such as the sentence before it reads a file or inspects a directory.
 
 The official `思考过程和翻译` (reasoning translation) plugin only covers **Reasoning** content. It does not touch the ordinary narration an agent writes between tool calls. This plugin covers that gap, and the two run side by side.
@@ -57,13 +60,38 @@ Settings persist through DSH's `configEditor`.
 
 ## Install
 
+Three ways, pick one.
+
+**① From npm** ([npmjs.com/package/dsh-execution-narration](https://www.npmjs.com/package/dsh-execution-narration)):
+
 ```sh
-dsh plugin --profile <profile> add dsh-execution-narration
+dsh plugin --profile <your-profile> add dsh-execution-narration
 ```
 
-Or install it from a local checkout with the plugin manager's `install_bundle`, pointing at this directory. Restart DSH so the Host half loads; the browser half hot-reloads.
+**② From the plugin market**: search for `dsh-execution-narration` (or the Chinese name 执行过程叙述机器翻译) in the DSH plugin panel.
 
-Manage it afterwards from **Plugins → Installed → Execution Narration Translation**.
+**③ From a local checkout**: use the plugin manager's `install_bundle`, pointing at this directory.
+
+Restart DSH afterwards so the Host half loads; the browser half hot-reloads. Manage it from **Plugins → Installed → Execution Narration Translation**.
+
+## Automated releases (maintainers)
+
+This repository publishes through **npm Trusted Publishing (OIDC)** and stores **no long-lived npm token**. Configure it once:
+
+1. Open the package's **Settings → Trusted Publisher** on npmjs.com, choose GitHub Actions, and fill in:
+
+   | Field | Value |
+   |---|---|
+   | Organization or user | `101011001101Q` |
+   | Repository | `dsh-execution-narration` |
+   | Workflow filename | `publish.yml` (filename only, no path) |
+   | Environment | leave empty |
+
+2. To release: bump `version` in `package.json`, commit, then create a GitHub Release (tagging e.g. `v1.0.2`) — `.github/workflows/publish.yml` publishes it.
+
+Requires npm CLI ≥ 11.5.1 and Node ≥ 22.14.0 (the workflow upgrades npm itself). Provenance attestation is generated automatically.
+
+Version history: [CHANGELOG.md](CHANGELOG.md).
 
 ## Known limitations
 

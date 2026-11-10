@@ -2,6 +2,9 @@
 
 [English](README.en.md) | **简体中文**
 
+[![npm](https://img.shields.io/npm/v/dsh-execution-narration.svg)](https://www.npmjs.com/package/dsh-execution-narration)
+[![license](https://img.shields.io/npm/l/dsh-execution-narration.svg)](LICENSE)
+
 一个 DSH 插件：把 Agent 执行任务时写下的英文**过程叙述**（例如读取文件前那句「Let me check…」）**原位**翻译成简体中文。
 
 官方「思考过程和翻译」插件只处理 **Reasoning（思考）** 内容，不覆盖工具调用之间那些普通的英文工作说明。本插件补的就是这段空白，两者可同时启用。
@@ -57,13 +60,38 @@
 
 ## 安装
 
+三种方式任选其一。
+
+**① 从 npm 安装**（[npmjs.com/package/dsh-execution-narration](https://www.npmjs.com/package/dsh-execution-narration)）：
+
 ```sh
-dsh plugin --profile <profile> add dsh-execution-narration
+dsh plugin --profile <你的 profile 名> add dsh-execution-narration
 ```
 
-也可以用插件管理器的 `install_bundle` 指向本地目录安装。重启 DSH 让 Host 半边加载；浏览器半边热重载。
+**② 从插件市场安装**：在 DSH 的插件面板里搜索「执行过程叙述机器翻译」或包名 `dsh-execution-narration`。
 
-装好后在 **插件 → 已安装 → 执行过程叙述机器翻译** 管理。
+**③ 从源码安装**：用插件管理器的 `install_bundle` 指向本目录。
+
+装好后**重启 DSH** 让 Host 半边加载（浏览器半边会热重载），然后在 **插件 → 已安装 → 执行过程叙述机器翻译** 里管理。
+
+## 自动发布（维护者）
+
+本仓库通过 **npm Trusted Publishing（OIDC）** 发布，**不保存任何长期 npm 令牌**。启用一次即可：
+
+1. 在 npmjs.com 打开本包的 **Settings → Trusted Publisher**，选择 GitHub Actions，填：
+
+   | 字段 | 值 |
+   |---|---|
+   | Organization or user | `101011001101Q` |
+   | Repository | `dsh-execution-narration` |
+   | Workflow filename | `publish.yml`（只写文件名，不带路径） |
+   | Environment | 留空 |
+
+2. 之后发布：改好 `package.json` 的 `version` 并提交 → 在 GitHub 上创建 Release（打 tag `v1.0.2` 之类）→ `.github/workflows/publish.yml` 自动发布。
+
+要求 npm CLI ≥ 11.5.1、Node ≥ 22.14.0（工作流里已自动升级 npm）。发布时会自动附带 provenance 证明。
+
+版本变化见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 已知限制
 
