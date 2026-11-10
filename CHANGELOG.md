@@ -2,6 +2,14 @@
 
 本项目遵循[语义化版本](https://semver.org/lang/zh-CN/)。
 
+## 1.0.2 — 2026-11-10
+
+**功能与 1.0.1 完全一致，没有任何行为变化。** 这一版只改打包与发布方式。
+
+- 打包内容补上 `CHANGELOG.md`（1.0.1 的 tarball 里没有它）。
+- `README.md` / `README.en.md`：增加 npm 徽章、三种安装方式，以及维护者用的「自动发布」说明。
+- 新增 `.github/workflows/publish.yml`：改用 **npm Trusted Publishing (OIDC)** 发布，仓库不再保存任何长期 npm 令牌。本版即是走这条新通道发布的第一个版本。
+
 ## 1.0.1 — 2026-11-10
 
 首个公开发布版本（npm 上的 `latest`）。

@@ -1,6 +1,6 @@
 {
   "name": "dsh-execution-narration",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Translate an agent's English execution narration into Simplified Chinese in place, reusing the official translator service; final answers, tool records and reasoning stay untouched.",
   "keywords": [
