@@ -8,6 +8,7 @@
     "enabled": "启用自动翻译",
     "provider": "翻译服务",
     "provider.bing": "Bing（免费，无需 API Key）",
+    "provider.google": "Google（免费，无需 API Key）",
     "targetLanguage": "目标语言",
     "targetLanguage.zh": "简体中文 (zh)",
     "targetLanguage.auto": "跟随界面语言 (auto)",

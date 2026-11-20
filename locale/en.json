@@ -8,6 +8,7 @@
     "enabled": "Enable automatic translation",
     "provider": "Translation service",
     "provider.bing": "Bing (free, no API key)",
+    "provider.google": "Google (free, no API key)",
     "targetLanguage": "Target language",
     "targetLanguage.zh": "Simplified Chinese (zh)",
     "targetLanguage.auto": "Follow UI language (auto)",
